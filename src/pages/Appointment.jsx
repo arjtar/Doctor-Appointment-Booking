@@ -7,6 +7,7 @@ const Appointment = () => {
 
   const {docId} = useParams()
   const {doctors, currencySymbol} = useContext(AppContext)
+  const daysofweek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
   const [docInfo, setDocInfo] = useState(null)
   const [docSlots, setDocSlots] = useState([])
@@ -20,15 +21,15 @@ const Appointment = () => {
   }
   const getAvailableSlots= async () =>{
 
-  setDocInfo(docInfo)
+  setDocSlots(docInfo)
 
   }
 
   let today = new Date()
 
-  for(let i =0; i<7; i++){
+  for(let i = 0; i < 7; i++){
     let currentDate = new Date(today)
-    currentDate.setDate(today.getData()+i)
+    currentDate.setDate(today.getDate() + i)
 
     let endTime = new Date()
     endTime.setDate(today.getData()+1)
@@ -69,7 +70,7 @@ const Appointment = () => {
   },[docInfo])
 
   useEffect(() =>{
-    console.log(docSlots)
+    console.log(docSlots);
   },[])
 
   return docInfo && (
@@ -102,11 +103,36 @@ const Appointment = () => {
       <p className='text-sm text-gray-500 max-w-[700px] mt-1'> {docInfo.about} </p>
       </div>
       <p className='text-gray-500 font-medium mt-4'> 
-        Appointment fee: <span className='text-gray-600'>{currencySymbol}{docInfo.fees}</span></p>
+        Appointment fee: <span className='text-gray-600'>{currencySymbol}{docInfo.fees}</span>
+        </p>
     </div>
 </div>
+
+
+{/*-----Booking slots-----------*/}
+<div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'>
+  <p>Booking Slots</p>
+  <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
+    {
+      docSlots.length && docSlots.map((item, index) => (
+        <div onClick={()=>setSlotIndex(index)}className={'text-center py-6 min-w-16 rounded-full cursor-full cursor-pointer ${slotIndex === index' ? 'bg-primary text-white' : 'border border-gray-200'}key={index}>
+          <P>{item[0] && daysofweek[item,[0].datetime.getDate()]}</P>
+          <P>{item[0] && item[0].datetime.getDate()}</P>
+        </div>
+    ))
+    }
   </div>
+  <div className='flex item-center gap-3 w-full overflow-x-scroll mt-4'>
+    {docSlots.length && docSlots[slotIndex].map((item, index) => (
+      <P onClick={()=>setSlotTime(item.time)} className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer `} key={index}>
+      {item.time.tolowercase()}
+      </P>
+    ))}
+  </div>
+ </div>
+
+ </div>
   )
 }
-
+ 
 export default Appointment
