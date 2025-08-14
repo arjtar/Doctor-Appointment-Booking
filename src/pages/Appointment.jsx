@@ -32,7 +32,7 @@ const Appointment = () => {
     currentDate.setDate(today.getDate() + i)
 
     let endTime = new Date()
-    endTime.setDate(today.getData()+1)
+    endTime.setDate(today.getDate() +1)
     endTime.setHours(21,0,0,0)
 
     if(today.getDate() === currentDate.getDate()){
@@ -43,7 +43,7 @@ const Appointment = () => {
       currentDate.setMinutes(0)
     }
     while(currentDate < endTime){
-      let formattedTime = currentDate.tolocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+      let formattedTime = currentDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
      
       //add slot
 
@@ -51,6 +51,8 @@ const Appointment = () => {
         datetime: new Date(currentDate),
         time: formattedTime
       })
+
+    
 
       currentDate.setMinutes(currentDate.getMinutes() + 30)
     
@@ -129,7 +131,12 @@ const Appointment = () => {
       </P>
     ))}
   </div>
+  <button className= 'bg-primary text-white text-sm font-light px-14 py-3 rounded-full'>Book an appointment</button>
  </div>
+
+ {/*Related doctor*/}
+
+ <RelatedDoctors docId={docId} speciality={docInfo.speciality} />
 
  </div>
   )
