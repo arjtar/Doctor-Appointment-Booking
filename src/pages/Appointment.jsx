@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
+import RelatedDoctors from "../components/RelatedDoctor";
 
 const Appointment = () => {
   const { docId } = useParams();
@@ -27,7 +28,7 @@ const Appointment = () => {
   }
 
   const getAvailableSlots = async () => {
-    setDocSlots(docInfo);
+    setDocSlots([]);
 
     let today = new Date();
 
@@ -157,16 +158,18 @@ const Appointment = () => {
 
           <div className="flex item-center gap-3 w-full overflow-x-scroll mt-4">
             {docSlots.length &&
-              docSlots[slotIndex].map((item, index) => (
+              docSlots [slotIndex].map((item, index) => (
                 <p
                   onClick={() => setSlotTime(item.time)}
                   className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer `}
                   key={index}
                 >
-                  {item.time.tolowercase()}
+                  {item.time.toLowercase()}
                 </p>
               ))}
+
           </div>
+
           <button className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full">
             Book an appointment
           </button>
@@ -174,7 +177,7 @@ const Appointment = () => {
 
         {/*Related doctor*/}
 
-        <RelatedDoctors docId={docId} speciality={docInfo.speciality} />
+        <RelatedDoctors docId={docId} speciality= {docInfo.speciality} />
       </div>
     )
   )

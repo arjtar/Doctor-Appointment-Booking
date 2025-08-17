@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+
+
 const RelatedDoctor = ({ speciality, docId }) => {
 
     const { doctors } = useContext(AppContext);
@@ -10,12 +13,12 @@ const RelatedDoctor = ({ speciality, docId }) => {
     useEffect(() => {
         if (doctors.length > 0 && speciality){
             const doctorsData = doctors.filter((doc)=> doc.speciality === speciality && doc._id !== docId);
-            setRelDocs(doctorsData);
+            setRelDocs(doctorsData)
         }
     },[doctors, speciality, docId])
-            setRelDocs(doctorsData);
-
-  return (
+    
+  
+   return (
     <div>
      <div className='flex flex-col items-center gap-4 my-16 test-gray-900 md:mx-10'>
        <h1 className='text-3xl font-medium'> Top Doctors to Book</h1> 
