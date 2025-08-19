@@ -164,7 +164,7 @@ const Appointment = () => {
                   className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer `}
                   key={index}
                 >
-                  {item.time.toLowercase()}
+                  {item.time.toLowerCase()}
                 </p>
               ))}
 
